@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Feb 21 17:03:36 2020
+
+@author: haowe
+"""
+import re, datetime, os
+
+def replacesub(f1, z = 34):
+    if f1:
+        pat = r"\d\d:\d\d:\d\d.\d\d\d" # 正则表达式
+        l0 = re.findall(pat, f1) # 正则过滤所有字幕显示时间，输出是一个列表
+        l0 = list(set(l0))
+        if l0:
+            temp = []
+            for i in l0:
+                h = int(i[0: 2])
+                m = int(i[3: 5])
+                s = int(i[6: 8])
+                delta = datetime.timedelta(seconds = z) # 调整时间
+                t = datetime.datetime(2018, 7, 20, h, m ,s) + delta
+                t1 = datetime.datetime.strftime(t, '%H:%M:%S') # 去掉年月日
+                temp.append(t1) # 得到调整后的时间列表
+        
+            for i in range(len(temp)):
+                f1 = f1.replace(l0[i], temp[i]) # 替换字幕时间
+        else:
+            pass 
+    else:
+        pass
+    
+    return f1
+ 
+
+
+    
+f = open(r'C:\16.srt')               # 返回一个文件对象   
+txt = []
+line = f.readline()               # 调用文件的 readline()方法   
+while line:   
+    newline = replacesub(line)
+    txt.append(newline)
+    print(line,newline)
+    line = f.readline()   
+f.close()
+
+
+f = open(r'd:/output/new.src' ,'w+')
+for line in txt: 
+    f.write(line+'\n')
