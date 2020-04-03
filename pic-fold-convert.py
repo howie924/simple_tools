@@ -5,7 +5,18 @@ Created on Fri Apr  3 13:56:21 2020
 @author: Administrator
 """
 
+
+
+#call function imgconvertImgFormat( formatA, pathA )
+# formatA : format you want, must be in '.xxx' format
+# pathA : path that can be read by os. 
+
+#e.g. imgconvertImgFormat('.png',  r'C:\Users\Administrator\Desktop\chihen')
+
+
 import os
+import cv2
+
 
 path = r'C:\Users\Administrator\Desktop\齿痕'
 imglist = []
@@ -18,9 +29,6 @@ for i in range(len(imglist)):
     os.rename(imglist[i],os.path.join(path, str(i+909 ) + '.jpg'))
     
     
-
-import os
-import cv2
 
 
 def imgconvertImgFormat(formatTo, dirpath):
